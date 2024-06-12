@@ -17,7 +17,7 @@ If you wish for your API Jam guide to display directly within the GCP console:
 ![Trust Repo](https://github.com/apigeek3000/api-jam-fundamentals-cloud-shell/blob/main/docs/trust-repo.png)
 
 3. Once Cloud Shell finishes opening the tutorial, close the Cloud Shell editor by clicking the X button. Be sure that you don't mistakenly close the tutorial sidebar
-![Close Cloud Shell](https://github.com/apigeek3000/api-jam-fundamentals-cloud-shell/blob/main/docs/cloud-cloud-shell.png)
+![Close Cloud Shell](https://github.com/apigeek3000/api-jam-fundamentals-cloud-shell/blob/main/docs/close-cloud-shell.png)
 
 4. Be sure that you are in the GCP project specified by Qwiklabs.
 ![Select GCP Project](https://github.com/apigeek3000/api-jam-fundamentals-cloud-shell/blob/main/docs/select-gcp-project.png)
