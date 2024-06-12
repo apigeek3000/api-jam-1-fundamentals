@@ -91,9 +91,11 @@ Let us test the newly built API proxy. You can use any HTTP client like cURL or 
     
 2.  **Test Using cURL** To test the API using curl or a similar command line HTTP client, use the following command:
     
+    ```bash
     curl -X GET "https://{{API hostname}}/v1/hipster-products-api/products"
+    ```
     
-    If all goes well, you should be able to get the list of Hipster Products in JSON format.
+    Alternatively, you can put that URL in new Chrome tab and test the API from there. If all goes well, you should be able to get the list of Hipster Products in JSON format.
     
     ![part1-curl-success.png](https://cdn.qwiklabs.com/XTyZor5bBgvG9jik2kcn0QAEwdB6n%2FKn90WmOjk5I3g%3D)
     
@@ -115,7 +117,7 @@ Let us test the newly built API proxy. You can use any HTTP client like cURL or 
     There might be a time where we need to debug for an error or to find potential performance bottleneck. Apigee comes with a handy debugging / tracing capability, referred as Apigee Debug. This capability comes with a user interface allowing you to visualize the API flows in [Gantt chart](https://en.wikipedia.org/wiki/Gantt_chart). Follow these steps to test using the Apigee Debug:
     
     *   Navigate to your API proxy's **Debug** tab. then click **START DEBUG SESSION**.
-    *   Ensure that the deployed API revision is selected in the **Env.**dropdown. Then click the **START** button. ![debug-start.png](https://cdn.qwiklabs.com/KneXqgV3O3oOvRwKxRBG1Xa2NgWYRzzzWfmfzs4Wc5A%3D)
+    *   Ensure that the deployed API revision is selected in the **Env** dropdown. Then click the **START** button. ![debug-start.png](https://cdn.qwiklabs.com/KneXqgV3O3oOvRwKxRBG1Xa2NgWYRzzzWfmfzs4Wc5A%3D)
     *   Wait for the debug session to start.
     *   Make a request to the following URL with tool like POSTMAN or curl command: https://{{API hostname}}/v1/hipster-products-api/products Modify the URL to use your org's and environment's API hostname - also, don't forget to make sure **/products** is appended to the end of the URL.
     *   You will see that the API proxy received the request and sent back a HTTP status 200 response which was logged by the debug session. Feel free to click the request 200 record, scroll the middle section on to the response, and you will see the response details in the debug session. ![debug-view-content.png](https://cdn.qwiklabs.com/5Sq64xufBZ0FoucBcCGbidMQO3bXTMIFjhkE1Jat9Xk%3D)
@@ -317,7 +319,7 @@ You can now use this API Key to make a valid API request to your API Proxy.
     
 2.  Click "**START DEBUG SESSION**".
     
-3.  Ensure that the deployed API revision is selected in the "**Env.**" dropdown.
+3.  Ensure that the deployed API revision is selected in the "**Env**" dropdown.
     
 4.  Click the "**START**" button.
     
@@ -550,7 +552,7 @@ Now, let's test the product quota together with the Javascript, this time with t
     
 2.  Click "**START DEBUG SESSION**".
     
-3.  Ensure that the deployed API revision is selected in the "**Env.**"dropdown.
+3.  Ensure that the deployed API revision is selected in the "**Env**" dropdown.
     
 4.  Click the "**START**" button. Wait for the debug session to start.
     
