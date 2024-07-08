@@ -56,12 +56,12 @@ In this part of the lab, we will learn how to create an API proxy from an OpenAP
     ![part1-choose-openapispec-template-with-scroll.png](https://cdn.qwiklabs.com/JcL%2FxtaKIqBADdc%2FLdztZwRQL8lrwM%2B%2FMgD2v0f%2FOBs%3D)
 5.  Browse the OpenAPI Spec file you downloaded in step 1 above. (The file name should be **hipster-products-backend-spec-v3.yaml**). Then click **NEXT**. Notice that, Apigee UI recognizes the information stated in the OpenAPI spec file and automatically populated the details. We're going to replace them with the following values:
     
-    *   Proxy Name: **`Hipster-Products-API`**
+    *   Proxy Name: `Hipster-Products-API`
         
-    *   Base path: **`/v1/hipster-products-api`**
+    *   Base path: `/v1/hipster-products-api`
         
         **Note:** Please make sure to manually update the **Base path** as suggested below to include the prefix **/v1**.
-    *   Target (Existing API): **`https://storage.googleapis.com/apigeexlabs/apijam-lab1/`**
+    *   Target (Existing API): `https://storage.googleapis.com/apigeexlabs/apijam-lab1/`
         
         **IMPORTANT**: In real life, you should enter the Target (Existing API) with the **value of the hostname or IP address of your backend**. For demonstration and purpose, in this lab we have hosted a json file on the GCS bucket. ![part1-createproxy-details.png](https://cdn.qwiklabs.com/Jxk3L6ThEfqZjiP1pAfweUayknUxmADnpstpQ6j3a5g%3D)
     
@@ -79,7 +79,7 @@ In this part of the lab, we will learn how to create an API proxy from an OpenAP
 
 ### **Part 1B - Test and debug the API Proxy**
 
-Let us test the newly built API proxy. You can use any HTTP client like cURL or Postman, or the [Apigee Debug Tool](https://cloud.google.com/apigee/docs/api-platform/debug/trace?hl=en).
+Let us test the newly built API proxy. You can use any HTTP client like cURL, Postman, or your browser URL.
 
 1.  **Get API Hostname**
     
@@ -119,7 +119,10 @@ Let us test the newly built API proxy. You can use any HTTP client like cURL or 
     *   Navigate to your API proxy's **Debug** tab. then click **START DEBUG SESSION**.
     *   Ensure that the deployed API revision is selected in the **Env** dropdown. Then click the **START** button. ![debug-start.png](https://cdn.qwiklabs.com/KneXqgV3O3oOvRwKxRBG1Xa2NgWYRzzzWfmfzs4Wc5A%3D)
     *   Wait for the debug session to start.
-    *   Make a request to the following URL with tool like POSTMAN or curl command: https://{{API hostname}}/v1/hipster-products-api/products Modify the URL to use your org's and environment's API hostname - also, don't forget to make sure **/products** is appended to the end of the URL.
+    *   Make a request to the following URL with tool like POSTMAN or curl command: Modify the URL to use your org's and environment's API hostname - also, don't forget to make sure **/products** is appended to the end of the URL.
+    ```
+    https://{{API hostname}}/v1/hipster-products-api/products
+    ```
     *   You will see that the API proxy received the request and sent back a HTTP status 200 response which was logged by the debug session. Feel free to click the request 200 record, scroll the middle section on to the response, and you will see the response details in the debug session. ![debug-view-content.png](https://cdn.qwiklabs.com/5Sq64xufBZ0FoucBcCGbidMQO3bXTMIFjhkE1Jat9Xk%3D)
 
 ### **Part 1C - Export / Import the API Proxy (Revision) Locally**
@@ -153,7 +156,7 @@ Useful Apigee documentation links on API Proxies:
 3.  Can we create a API proxy without any backend?
 4.  Refering to the Apigee Debug tool in Part 1B, notice that there's a dropdown called Filter, what is the purpose of it?
 
-In your other window from where you started this lab click _Check my progress_ to verify that the proxy has been created. API proxy has been created.
+In your other window from where you started this lab click **Check my progress** to verify that the proxy has been created. API proxy has been created.
 
 Part 2 - API Security and API Producer/Consumer Relationship on Apigee
 ----------------------------------------------------------------------
@@ -199,7 +202,7 @@ In this part of the lab, you will:
     
 3.  Still on the **Proxy endpoint** => **default** tree menu, Click **(+)** on the Request Preflow. Choose **Create new policy** option, and then choose **Verify API Key** policies in the "Select policy" dropdown. And provide the following values:
     
-    *   Name: `Verify-API-Key-1`
+    *   Name: ```Verify-API-Key-1```
     *   Display Name: `Verify-API-Key-1`
     
     Then click ADD.
@@ -222,8 +225,10 @@ In this part of the lab, you will:
     
 9.  Make a request to the following URL with tool like POSTMAN or curl command:
     
+    ```
     https://{{API hostname}}/v1/hipster-products-api/products
-    
+    ```
+
     Modify the {{API hostname}} to use your Apigee environment hostname (found at Management → Environments → Environment Groups).
     
 10.  You should see the error response message as:
@@ -326,8 +331,10 @@ You can now use this API Key to make a valid API request to your API Proxy.
     *   Wait for the debug session to start.
 5.  Make a request to the following URL with tool like POSTMAN or curl command:
     
+    ```
     https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}
-    
+    ```
+
     In the above URL:
     
     *   {{API hostname}} is the hostname for your environment group that you copied previously from **"Management" >> "Environments" >> "Environment Groups" >> your environment group**, and
@@ -359,7 +366,7 @@ In this part of the lab, you learned how the relationship between API Proxies, A
     
     ![part2-questions3.png](https://cdn.qwiklabs.com/O3wAFP2GsEp0LEE9dciLSs0ZYVv0VWhjS8tfUg%2FGofE%3D)
 
-In your other window from where you started this lab click _Check my progress_ to verify that you've secured your API proxy with a Verify API Key policy. API proxy has been secured with API Key.
+In your other window from where you started this lab click **Check my progress** to verify that you've secured your API proxy with a Verify API Key policy. API proxy has been secured with API Key.
 
 Part 3 - Manage tiered API Product subscription through API call quotas and dynamic response
 --------------------------------------------------------------------------------------------
@@ -406,8 +413,18 @@ As stated, quotas are only enforced by adding a Quota Policy into your API Proxy
     
     Replace the content of QU-ProductQuota.xml with the following:
     
-    <?xml version="1.0" encoding="UTF-8" standalone="yes"?> <Quota async="false" continueOnError="false" enabled="true" name="QU-ProductQuota"> <DisplayName>QU-ProductQuota</DisplayName> <Allow count="3" countRef="verifyapikey.Verify-API-Key-1.apiproduct.developer.quota.limit"/> <Interval ref="verifyapikey.Verify-API-Key-1.apiproduct.developer.quota.interval">1</Interval> <TimeUnit ref="verifyapikey.Verify-API-Key-1.apiproduct.developer.quota.timeunit">minute</TimeUnit> <Distributed>true</Distributed> <Synchronous>true</Synchronous> </Quota>
-    
+    ```xml
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?> 
+    <Quota async="false" continueOnError="false" enabled="true" name="QU-ProductQuota">
+        <DisplayName>QU-ProductQuota</DisplayName> 
+        <Allow count="3" countRef="verifyapikey.Verify-API-Key-1.apiproduct.developer.quota.limit"/> 
+        <Interval ref="verifyapikey.Verify-API-Key-1.apiproduct.developer.quota.interval">1</Interval> 
+        <TimeUnit ref="verifyapikey.Verify-API-Key-1.apiproduct.developer.quota.timeunit">minute</TimeUnit> 
+        <Distributed>true</Distributed> 
+        <Synchronous>true</Synchronous>
+    </Quota>
+    ```
+
     In the above Quota policy configuration, if the field is not set in the API product, this would allow a default of 3 calls per minute.
     
 7.  Click **SAVE**, and then click **SAVE AS NEW REVISION** and click **Deploy**.
@@ -483,20 +500,24 @@ Now, we have two pair of "Product-App", which we have dynamically configured the
 
 1.  Still in the **Distribution** → **Apps** menu, first click **Hipster Android App Basic**, then copy they **Key** (not the **Secret**). Then paste it to your editor like VS Code or Notepad.
 
-![part3-getappkey.png](https://cdn.qwiklabs.com/4PZzrDSYW%2FCh6CX8KmBshqGGE06a3b8GXLCSQtkNTBE%3D)
+    ![part3-getappkey.png](https://cdn.qwiklabs.com/4PZzrDSYW%2FCh6CX8KmBshqGGE06a3b8GXLCSQtkNTBE%3D)
 
 2.  Now, let's make at least 7 continuous requests to the following URL with tool like POSTMAN or curl command:
     
+    ```
     https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}
+    ```
     
     In the above URL:
     
-    *   {{API hostname}} is the hostname for your environment group that you copied previously from "Admin" >> "Environments" >> "Groups" >> your environment group, and
+    *   {{API hostname}} is the hostname for your environment group that you copied previously from **"Admin" >> "Environments" >> "Groups" >> your environment group**, and
     *   {{API Key}} is the API key that you just copied from the newly created App for the **Silver** tier, i.e. `Hipster Android App Basic`.
 3.  If it all goes well, you should be able to get the valid result for the first 5 times. However, you should get an error on the 6th time onward.
     
+    ```
     {"fault":{"faultstring":"Rate limit quota violation. Quota limit exceeded. Identifier : \_default","detail":{"errorcode":"policies.ratelimit.QuotaViolation"}}}
-    
+    ```
+
     This is because, we defined 5 call per minute.
     
 4.  If you wait for another minute or so before making another call, you should be getting a successful result since the quota has been reset for the next minute.
@@ -514,32 +535,47 @@ Apigee allows you to do it with much elegant way with the combination of Apigee 
 
 Let's learn how to do this!
 
-1.  Recalling what response did you get when successfully calling the Hipster Products API. Refer to [Part 1B step 2 above](https://github.com/CloudVLab/gcp-enablement-content/blob/apijam-lab1-nov2023-updates/labs/enbl028-apigee-apijam-lab-1-api-management-fundamentals/instructions/en.md#part-1b---test-the-api-proxy). You should see a list of products with the attributes of **id, name, description, picture, priceUsd, and categories**. What we are going to do in this section is to remove two of the attributes if the subscribed-app is not Gold (ie Silver). This following diagram illustrates the idea. ![part3-modify-response-diagram.png](https://cdn.qwiklabs.com/Pe83NE6b09REi%2BQlHluZK9X3hpt6j55tZUTUB8itos0%3D)
+1.  Recalling what response did you get when successfully calling the Hipster Products API. **Refer to Part 1B step 2** above. You should see a list of products with the attributes of **id, name, description, picture, priceUsd, and categories**. What we are going to do in this section is to remove two of the attributes if the subscribed-app is not Gold (ie Silver). This following diagram illustrates the idea.
+    ![part3-modify-response-diagram.png](https://cdn.qwiklabs.com/Pe83NE6b09REi%2BQlHluZK9X3hpt6j55tZUTUB8itos0%3D)
     
-2.  Make sure that you've clicked the **default** in the **Proxy Endpoint** so that the diagram shows correctly in the center. Click **(+)** on the **GetProducts** in the **Response** (not in the Request).
-    
+2.  Make sure that you've clicked the **default** in the **Proxy Endpoint** so that the diagram shows correctly in the center. Click **(+)** on the **GetProducts** in the **Response** (not in the Request). 
     ![part3-add-javapolicy.png](https://cdn.qwiklabs.com/SDJu52mLoNk8RZrbp%2FZqWfQblcdO%2FuQ9WwN3tE3mxCc%3D)
-3.  Once the Add policy step pane appears on the right, choose **Create new policy** option and browse for **Javascript** in the **Select policy** dropdown. Enter **JS-ModifyResponseBasedOnTier** for both **Name** and **Display name**.
+
+3.  Once the Add policy step pane appears on the right, choose **Create new policy** option and browse for **Javascript** in the **Select policy** dropdown. Enter `JS-ModifyResponseBasedOnTier` for both **Name** and **Display name**.
     
-4.  In the Javascript file field, choose **CREATE NEW RESOURCE**. As soon as the **Add resource** pane appears, ensure that **Javascript** is being selected in the **Resource type**, **Create new file** in the **Source**. You may leave the **Resource name** as it (**Resource-1.js**). Then click **ADD**.
-    
+4.  In the Javascript file field, choose **CREATE NEW RESOURCE**. As soon as the **Add resource** pane appears, ensure that **Javascript** is being selected in the **Resource type**, **Create new file** in the **Source**. You may leave the **Resource name** as it (`Resource-1.js`). Then click **ADD**. 
     ![part3-addjavascript-resources.png](https://cdn.qwiklabs.com/0oSrntNbWKhPtqeC87iJ%2BqZVgvfH3l9gLUhv7AGTxnk%3D)
-5.  You should be routed back to the **Add policy** step pane. In the **Javascript** file field, ensure that the **Resource-1.js** file has been selected. Then click **ADD**.
+
+5.  You should be routed back to the **Add policy** step pane. In the **Javascript** file field, ensure that the `Resource-1.js` file has been selected. Then click **ADD**.
     
-6.  The editor diagram should look like this. Notice that there are two items being added: The **JS-ModifyResponseBasedOnTier** under **Policies** and **Resource-1.js** under the **Resources/jsc**. ![part3-after-adding-js.png](https://cdn.qwiklabs.com/Y0poSgMYjxcgyYqavxQgAf4DfBXZFny55XDpX65UHWs%3D)
+6.  The editor diagram should look like this. Notice that there are two items being added: The `JS-ModifyResponseBasedOnTier` under **Policies** and `Resource-1.js` under the **Resources/jsc**. 
+    ![part3-after-adding-js.png](https://cdn.qwiklabs.com/Y0poSgMYjxcgyYqavxQgAf4DfBXZFny55XDpX65UHWs%3D)
     
 7.  Click **Resource-1.js** file (on the left pane tree menu) and copy the following code snippet to the Resource-1.js code editor pane.
     
-    if(response.content) { var data = JSON.parse(response.content); var tier = context.getVariable("verifyapikey.Verify-API-Key-1.apiproduct.Tier"); if(!tier || tier !== "Gold") { for(var i=0;i < data.products.length; i++) { delete data.products\[i\].priceUsd; delete data.products\[i\].categories; } } context.proxyResponse.headers\['tier'\] = tier; context.proxyResponse.headers\['content-type'\] = 'application/json'; context.proxyResponse.content = JSON.stringify(data, null, 2); }
+    ```js
+    if(response.content && response.content != "") { 
+        var data = JSON.parse(response.content); 
+        var tier = context.getVariable("verifyapikey.Verify-API-Key-1.apiproduct.Tier"); 
+        if(!tier || tier !== "Gold") { 
+            for(var i=0;i < data.products.length; i++) { 
+                delete data.products\[i\].priceUsd; delete data.products\[i\].categories; 
+            } 
+        } 
+        context.proxyResponse.headers\['tier'\] = tier; 
+        context.proxyResponse.headers\['content-type'\] = 'application/json'; 
+        context.proxyResponse.content = JSON.stringify(data, null, 2); 
+    }
+    ```
     
-    We use [JavaScript object model](https://cloud.google.com/apigee/docs/api-platform/reference/javascript-object-model) in our JavaScript policy to perform some manipulation. The code above removes **priceUsd** and **categories** in each Hipster Product when the Tier is not **Gold** or custom attribute **Tier** is not set. The we output the modified response's content. Additionally, we also add a response header called **Tier**. ![part3-add-js-resource-code.png](https://cdn.qwiklabs.com/DxL3qFYvNOAKdYl0WcayS9MrBrlLz445kY%2Bd5ZpWojE%3D)
+    We use [JavaScript object model](https://cloud.google.com/apigee/docs/api-platform/reference/javascript-object-model) in our JavaScript policy to perform some manipulation. The code above removes **priceUsd** and **categories** in each Hipster Product when the Tier is not **Gold** or custom attribute **Tier** is not set. The we output the modified response's content. Additionally, we also add a response header called **Tier**. 
+    ![part3-add-js-resource-code.png](https://cdn.qwiklabs.com/DxL3qFYvNOAKdYl0WcayS9MrBrlLz445kY%2Bd5ZpWojE%3D)
     
 8.  Click **SAVE**, and then click **SAVE AS NEW REVISION**.
     
 9.  Click **DEPLOY**. As soon as the **Deploy Hipster-Products-API** pane appears, choose the latest revision and the appropriate environment (which should be **eval**). Click **Deploy**.
     
-10.  Now we need to edit the Gold's API Product. Under the **Distribution -> API Product**. Locate the **Hipster-Products-API-Product-Gold** and click on it. Click Edit and scroll down to the end of the **API Product** page, under the **Custom Attributes** section, click **ADD CUSTOM ATTRIBUTE**. As it pops up, enter **Tier** in **Name 1** and **Gold** in **Value 1**. Click OK on the Custom attributes page.
-    
+10.  Now we need to edit the Gold's API Product. Under the **Distribution -> API Product**. Locate the **Hipster-Products-API-Product-Gold** and click on it. Click Edit and scroll down to the end of the **API Product** page, under the **Custom Attributes** section, click **ADD CUSTOM ATTRIBUTE**. As it pops up, enter `Tier` in **Name 1** and `Gold` in **Value 1**. Click OK on the Custom attributes page. 
     ![part3-add-custom-attribute-goldproduct](https://cdn.qwiklabs.com/5GXOUJur%2FWtTVsMSfWkB44YzlzoLv43Z%2FUj5Ci2XpKk%3D)
 
 Scroll up and click **SAVE** for the **API Products** page. 11. \[Optional\], you may do the same for the Silver Product but it won't make any difference in this case. This is because the Javascript code above will just remove the **priceUsd** and **categories** if the Tier is not Gold.
@@ -558,8 +594,10 @@ Now, let's test the product quota together with the Javascript, this time with t
     
 5.  Make a request to the following URL with tool like POSTMAN or curl command:
     
+    ```
     https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}
-    
+    ```
+
     In the above URL:
     
     *   {{API hostname}} is the hostname for your environment group that you copied previously from "Admin" >> "Environments" >> "Groups" >> your environment group, and
@@ -596,7 +634,7 @@ In this part of the lab, you have created another products aligned with your API
 2.  With the Javascript policy (and also Python or Java policy), does it mean that I can write any logic / code that I want? What are the impact?
 3.  Apigee also has another policy called [Assign Message](https://cloud.google.com/apigee/docs/api-platform/reference/policies/assign-message-policy) policy. Can we achieve the similar result with it?
 
-In your other window from where you started this lab click _Check my progress_ to verify that you've created tiered API products and apply quotas. API Products and Apps have been created.
+In your other window from where you started this lab click **Check my progress** to verify that you've created tiered API products and apply quotas. API Products and Apps have been created.
 
 Part 4 - Build an App Developer Experience using Apigee's Integrated Developer Portals
 --------------------------------------------------------------------------------------
@@ -623,7 +661,7 @@ In this lab, you will create an Integrated Developer Portal wherein you will pub
 
 CORS (Cross-origin resource sharing) is a standard mechanism that allows JavaScript XMLHttpRequest (XHR) calls executed in a web page to interact with resources from non-origin domains. CORS is a commonly implemented solution to the "[same-origin policy](https://en.wikipedia.org/wiki/Same-origin_policy)" that is enforced by all browsers. For example, if you make an XHR call to your API Proxy from JavaScript code executing in your browser, the call will fail. This is because the domain serving the page to yours browser is not the same as the domain serving your API, eg. "{your org name}-{environment name}.apigee.net". CORS provides a solution to this problem by allowing servers to "opt-in" if they wish to provide cross-origin resource sharing.
 
-1.  Navigate to your **Hipster-Products-API** API Proxy, make sure you've selected the **default** from the **Proxy endpoints**. Click (+) in the **PreFlow** in the **Request**. As soon as the **Add policy step** appears on the right, find **CORS** in the **Select policy** dropdown. Enter **CORS-DevPortal** for both **Name** and **Display name**. Then click **ADD**. ![part4-add-cors](https://cdn.qwiklabs.com/UpAVjL0MuaOwdV%2Fdly%2FQj7x6%2F%2FL%2F99wXcXpZTyfaHWo%3D)
+1.  Navigate to your **Hipster-Products-API** API Proxy, make sure you've selected the **default** from the **Proxy endpoints**. Click (+) in the **PreFlow** in the **Request**. As soon as the **Add policy step** appears on the right, find **CORS** in the **Select policy** dropdown. Enter `CORS-DevPortal` for both **Name** and **Display name**. Then click **ADD**. ![part4-add-cors](https://cdn.qwiklabs.com/UpAVjL0MuaOwdV%2Fdly%2FQj7x6%2F%2FL%2F99wXcXpZTyfaHWo%3D)
     
 2.  Click the CORS-DevPortal policy. You should see that the CORS configuration (in XML) shown in the lower part of the pane. You may modify the values (such as AllowOrigins, AllowMethods, etc.) to suit your requirement. But we shall leave it as it for now. ![part4-add-cors](https://cdn.qwiklabs.com/S5FWB9Wmof3DobRwfTL8bbuhNZ2iqwcmQvKreiz6y9k%3D)
     
@@ -656,8 +694,10 @@ As we're going to publish API documentation to our developer portal, we need to 
     
 3.  Uncomment **servers - url**. Under the **servers - url**, enter the following value:
     
+    ```
     https://{{API hostname}}/v1/hipster-products-api
-    
+    ```
+
     **Be mindful about the yaml's indent. The "- url" should be right below the "v"** Here's an example:
     
     ![part4-update-hostname-yaml-file-with-indent.png](https://cdn.qwiklabs.com/ZSmwdvld%2FRzSoS3hoJk1HZhDkEOrhpBiCr44ZullqYI%3D)
@@ -800,7 +840,7 @@ Redesign the developer to suit your company theme / look and feel, by adding the
 *   Basic style including primary and accent color
 *   Background image
 
-In your other window from where you started this lab click _Check my progress_ to verify that you've completed the steps to publish your API through a developer portal. API proxy has been published on dev portal.
+In your other window from where you started this lab click **Check my progress** to verify that you've completed the steps to publish your API through a developer portal. API proxy has been published on dev portal.
 
 Part 5 - Measure API Program Success with Apigee Analytics
 ----------------------------------------------------------
@@ -953,7 +993,7 @@ In the event where, the out of the box reports do not meet your requirement, you
     
     Notice that you can change the Report time by selecting 1 hour, 3 hours, etc. ![part5-view-customreport-default.png](https://cdn.qwiklabs.com/x%2FLtytGQiG2zhtDDKKTxsd%2B6SGnqH7vg7Wgne5hmGrE%3D)
     
-4.  \[**Optional**\] Generate several requests to your API from various location. One simple tips is to either use CURL command in the GCP Cloud Shell or Web version of Postman. But remember don't spend too much time on it, time is ticking :).
+4.  \[**Optional**\] Generate several requests to your API from various location. One simple tips is to either use CURL command in the GCP Cloud Shell or Web version of Postman. But remember don't spend too much time on it, time is ticking :)
     
 5.  Remember that we have chosen 3 dimensions during the creation. Now, choose any of the **API Product** in the API Product's Dimension **value** section, you should see the **Country** dimension where the API Clients access your API shows up. Choose any one of the country and you should see the **city**.
     
@@ -974,7 +1014,7 @@ In this lab, you have explored all Reports that show you the success and perform
 *   [Data Capture Policy](https://cloud.google.com/apigee/docs/api-platform/reference/policies/data-capture-policy)
 *   [Custom Reports documentation](https://cloud.google.com/apigee/docs/api-platform/analytics/create-custom-reports)
 
-In your other window from where you started this lab click _Check my progress_ to verify that you've successfully created a custom analytics report that measures custom metrics. A custom report created.
+In your other window from where you started this lab click **Check my progress** to verify that you've successfully created a custom analytics report that measures custom metrics. A custom report created.
 
 Congratulations!
 ----------------
