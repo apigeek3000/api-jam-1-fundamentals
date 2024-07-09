@@ -120,9 +120,7 @@ Let us test the newly built API proxy. You can use any HTTP client like cURL, Po
     *   Ensure that the deployed API revision is selected in the **Env** dropdown. Then click the **START** button. ![debug-start.png](https://cdn.qwiklabs.com/KneXqgV3O3oOvRwKxRBG1Xa2NgWYRzzzWfmfzs4Wc5A%3D)
     *   Wait for the debug session to start.
     *   Make a request to the following URL with tool like POSTMAN or curl command: Modify the URL to use your org's and environment's API hostname - also, don't forget to make sure **/products** is appended to the end of the URL.
-    ```
-    https://{{API hostname}}/v1/hipster-products-api/products
-    ```
+    `https://{{API hostname}}/v1/hipster-products-api/products`
     *   You will see that the API proxy received the request and sent back a HTTP status 200 response which was logged by the debug session. Feel free to click the request 200 record, scroll the middle section on to the response, and you will see the response details in the debug session. ![debug-view-content.png](https://cdn.qwiklabs.com/5Sq64xufBZ0FoucBcCGbidMQO3bXTMIFjhkE1Jat9Xk%3D)
 
 ### **Part 1C - Export / Import the API Proxy (Revision) Locally**
@@ -200,9 +198,9 @@ In this part of the lab, you will:
     
     Now, pay attention to the flow arrow starting from **API Client => Proxy Endpoint (Request) => Target Endpoint (default) => Proxy Endpoint (Response) => API Client**. This diagram visualizes the flow from the API client being processed by Apigee's API Proxy.
     
-3.  Still on the **Proxy endpoint** => **default** tree menu, Click **(+)** on the Request Preflow. Choose **Create new policy** option, and then choose **Verify API Key** policies in the "Select policy" dropdown. And provide the following values:
+3.  Still on the **Proxy endpoint** => **default** tree menu, Click **(+)** on the **Request Preflow**. Choose **Create new policy** option, and then choose **Verify API Key** policies in the "Select policy" dropdown. And provide the following values:
     
-    *   Name: ```Verify-API-Key-1```
+    *   Name: `Verify-API-Key-1`
     *   Display Name: `Verify-API-Key-1`
     
     Then click ADD.
@@ -225,15 +223,16 @@ In this part of the lab, you will:
     
 9.  Make a request to the following URL with tool like POSTMAN or curl command:
     
-    ```
-    https://{{API hostname}}/v1/hipster-products-api/products
-    ```
+    `https://{{API hostname}}/v1/hipster-products-api/products`
 
     Modify the {{API hostname}} to use your Apigee environment hostname (found at Management → Environments → Environment Groups).
     
 10.  You should see the error response message as:
     
+    ```
     {"fault":{"faultstring":"Failed to resolve API Key variable request.queryparam.apikey","detail":{"errorcode":"steps.oauth.v2.FailedToResolveAPIKey"}}}
+    ```
+
 11.  Navigating back to the **Debug** tab, you should see a 401 (unauthorized) response for your API Call as shown below. This is because the API proxy was expecting an API Key as a query parameter. ![debug verify api key failed.png](https://cdn.qwiklabs.com/%2Bh9HiqLou51eiJzXlw3rCCTwyxl7sXW67LMK7CpPZPY%3D)
     
 
@@ -331,9 +330,9 @@ You can now use this API Key to make a valid API request to your API Proxy.
     *   Wait for the debug session to start.
 5.  Make a request to the following URL with tool like POSTMAN or curl command:
     
-    ```
+    `
     https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}
-    ```
+    `
 
     In the above URL:
     
@@ -394,7 +393,7 @@ As stated, quotas are only enforced by adding a Quota Policy into your API Proxy
 2.  Navigate to the **Develop** tab of the proxy, and verify that the policy for Verify API Key exists with the proper policy name. Click on the policy and look at the XML configuration below for policy name.
     
     ![verify api key before quota.png](https://cdn.qwiklabs.com/QwQZ090BofaNGZZDrHK8awZaUYGen8jyBzF%2FYFUncbE%3D)
-3.  Still on the **Proxy endpoint** => **default** tree menu, Click **(+)** on the **Request** **Preflow** (in which you should see the **Verify-API-Key-1** as well there). Choose Create new policy option, and then choose **Quota** policies in the **Select policy** dropdown. Provide the name of **QU-ProductQuota** for both **Name** and **Display name**. Then click **ADD**.
+3.  Still on the **Proxy endpoint** => **default** tree menu, Click **(+)** on the **Request** **Preflow** (in which you should see the **Verify-API-Key-1** as well there). Choose Create new policy option, and then choose **Quota** policies in the **Select policy** dropdown. Provide the name of `QU-ProductQuota` for both **Name** and **Display name**. Then click **ADD**.
     
     ![part3-add-quota-policy](https://cdn.qwiklabs.com/mRjMVJUPrjcVSRTkFyqog02mS5Azynja18tPMdEHscc%3D)
 4.  Upon added, the QU-ProductQuota policy should appear right below the Verify-API-Key-1 policy. ![part3-quotapolicy-added](https://cdn.qwiklabs.com/jCuwm%2B4q4uSGD%2BzybDOpY776eoF7j1qKSdExdCuO378%3D)
@@ -504,9 +503,7 @@ Now, we have two pair of "Product-App", which we have dynamically configured the
 
 2.  Now, let's make at least 7 continuous requests to the following URL with tool like POSTMAN or curl command:
     
-    ```
-    https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}
-    ```
+    `https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}`
     
     In the above URL:
     
@@ -559,11 +556,11 @@ Let's learn how to do this!
         var tier = context.getVariable("verifyapikey.Verify-API-Key-1.apiproduct.Tier"); 
         if(!tier || tier !== "Gold") { 
             for(var i=0;i < data.products.length; i++) { 
-                delete data.products\[i\].priceUsd; delete data.products\[i\].categories; 
+                delete data.products[i].priceUsd; delete data.products[i].categories; 
             } 
         } 
-        context.proxyResponse.headers\['tier'\] = tier; 
-        context.proxyResponse.headers\['content-type'\] = 'application/json'; 
+        context.proxyResponse.headers['tier'] = tier; 
+        context.proxyResponse.headers['content-type'] = 'application/json'; 
         context.proxyResponse.content = JSON.stringify(data, null, 2); 
     }
     ```
@@ -594,9 +591,7 @@ Now, let's test the product quota together with the Javascript, this time with t
     
 5.  Make a request to the following URL with tool like POSTMAN or curl command:
     
-    ```
-    https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}
-    ```
+    `https://{{API hostname}}/v1/hipster-products-api/products?apikey={{API Key}}`
 
     In the above URL:
     
@@ -694,9 +689,7 @@ As we're going to publish API documentation to our developer portal, we need to 
     
 3.  Uncomment **servers - url**. Under the **servers - url**, enter the following value:
     
-    ```
-    https://{{API hostname}}/v1/hipster-products-api
-    ```
+    `https://{{API hostname}}/v1/hipster-products-api`
 
     **Be mindful about the yaml's indent. The "- url" should be right below the "v"** Here's an example:
     
@@ -876,7 +869,7 @@ When registering an application to an API product that metadata is loaded when v
 
 Apigee comes with a lot of pre built reports. For the purpose of these labs and in the interest of time, we will walk through the different dashboards with screenshots from populated demo environments. Feel free to use the optional load generator to follow along in your own environment.
 
-If you prefer you can have a look at the API Dashboards by watching this video that gives you an overview of the metrics dashboards with a lot of filled values: https://www.youtube.com/watch?v=A2KQ3GJvb98&t=88s. Take note that, they might be appeared slightly different in the new console / UI.
+If you prefer you can have a look at the API Dashboards by watching this video that gives you an overview of the metrics dashboards with a lot of filled values: [https://www.youtube.com/watch?v=A2KQ3GJvb98&t=88s](https://www.youtube.com/watch?v=A2KQ3GJvb98&t=88s). Take note that, they might be appeared slightly different in the new console / UI.
 
 To get to the reports open the **API metrics** menu under the **Analytics** in the sidebar.
 
@@ -907,7 +900,7 @@ The Latency Analysis dashboard can tell you to any latency issues your API proxi
 
 It consists of four dashboard namely: Reponse time, Target response time, Request processing latency, and Response processing latency.
 
-The Latency Analysis dashboard can be find right next to the Error Code Analysis tab.
+The **Latency Analysis** dashboard can be find right next to the Error Code Analysis tab.
 
 ![part5-analysis-analysis](https://cdn.qwiklabs.com/TW3fxgjbRL%2BuFhZyrW1QgsyIs1tEdUDxNJ6z%2BhLPc6s%3D)
 
@@ -929,7 +922,7 @@ The Target Performance dashboard helps you visualize traffic patterns and perfor
 
 The Developer Engagement dashboard tells you which of your registered app developers are generating the most API traffic. For each of your developers, you can find out who is generating the most API traffic and the most errors. For example, if a particular developer's app is generating a lot of errors relative to other developers, you can pro-actively address the problem with that developer.
 
-Note: The Developer Engagement dashboard is only available in the classic Apigee UI (https://apigee.google.com), Analyze > Developers > Developer Engagement.
+Note: The Developer Engagement dashboard is only available in the classic Apigee UI (https://apigee.google.com), **Analyze > Developers > Developer Engagement**.
 
 ![image alt text](https://cdn.qwiklabs.com/vXxHfIx7IAFvOF4TeOt1EqZMhxJXBvpRYue3dH7g3X4%3D)
 
@@ -941,7 +934,7 @@ In the main view, if it is enabled, select the Analyze button under the Actions 
 
 The Traffic Composition dashboard measures the relative contribution of your top APIs, apps, developers, and products to your overall API program.
 
-Note: The Traffic Composition dashboard is only available in the classic Apigee UI (https://apigee.google.com), Analyze > Developers > Traffic Composition.
+Note: The Traffic Composition dashboard is only available in the classic Apigee UI (https://apigee.google.com), **Analyze > Developers > Traffic Composition**.
 
 ![image alt text](https://cdn.qwiklabs.com/pLp1e8jFx17ee38YICC2DK9yKoTX1h4sPMF5qpkeLC0%3D)
 
@@ -949,7 +942,7 @@ Note: The Traffic Composition dashboard is only available in the classic Apigee 
 
 The Devices dashboard tells you about the devices and servers that are being used to access your APIs. It lets you spot trends in how users are accessing your APIs. For instance, you might notice that traffic from one type of device is increasing, while another is going down, and then decide if the change requires any action or not.
 
-Note: The Device dashboard is only available in the classic Apigee UI (https://apigee.google.com), Analyze > End Users > Devices.
+Note: The Device dashboard is only available in the classic Apigee UI (https://apigee.google.com), **Analyze > End Users > Devices**.
 
 ![image alt text](https://cdn.qwiklabs.com/WIFn4tPXn7W4F1aWWHA2cJtAIZ%2FjSqBELd%2FBq9YoEp4%3D)
 
@@ -989,7 +982,7 @@ In the event where, the out of the box reports do not meet your requirement, you
     
     Click CREATE.
     
-3.  Once created, click the "API Traffic by API Product and Client Location" report to view the report. The custom report should display two column chart diagrams, showing "Sum of traffic" and "Sum of proxy errors". Plus a summary section at the end.
+3.  Once created, click the **API Traffic by API Product and Client Location** report to view the report. The custom report should display two column chart diagrams, showing "Sum of traffic" and "Sum of proxy errors". Plus a summary section at the end.
     
     Notice that you can change the Report time by selecting 1 hour, 3 hours, etc. ![part5-view-customreport-default.png](https://cdn.qwiklabs.com/x%2FLtytGQiG2zhtDDKKTxsd%2B6SGnqH7vg7Wgne5hmGrE%3D)
     
